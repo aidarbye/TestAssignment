@@ -18,8 +18,9 @@ struct CountryDetails: View {
                         .overlay(Color.black.opacity(0.09))
                         .padding()
                 } else {
-                    Image(systemName: "photo")
+                    Image(systemName: "picture")
                         .resizable()
+                        .frame(height:200)
                         .padding()
                 }
                 CellView(text: "Region", subtext: vm.country.region?.capitalized ?? "")
