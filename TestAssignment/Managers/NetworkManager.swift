@@ -8,14 +8,14 @@ class NetworkManager {
     // The method responsible for data fetching,cache.
     func fetchData(from url: String?,with competition: @escaping ([Country])->Void) {
         guard let stringUrl = url, let url = URL(string: stringUrl) else {return}
-        if let cachedData = getCachedData(from: url) {
-            if let countries = try? JSONDecoder().decode([Country].self, from: cachedData) {
-                DispatchQueue.main.async {
-                    competition(countries)
-                }
-                return
-            }
-        }
+//         if let cachedData = getCachedData(from: url) {
+//             if let countries = try? JSONDecoder().decode([Country].self, from: cachedData) {
+//                 DispatchQueue.main.async {
+//                     competition(countries)
+//                 }
+//                 return
+//             }
+//         }
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
                 print(error)
@@ -26,7 +26,7 @@ class NetworkManager {
                 let country = try JSONDecoder().decode([Country].self, from: data)
                 DispatchQueue.main.async {
                     competition(country)
-                    self.saveDataToCache(with: data, response: response)
+//                     self.saveDataToCache(with: data, response: response)
                 }
             } catch {
                 print(error)
@@ -42,13 +42,13 @@ class NetworkManager {
         URLCache.shared.storeCachedResponse(cachedResponse, for: urlRequest)
     }
     // Get Cached Data
-    func getCachedData(from url: URL) -> Data? {
-        let urlRequest = URLRequest(url: url)
-        if let cachedResponse = URLCache.shared.cachedResponse(for: urlRequest) {
-            return cachedResponse.data
-        }
-        return nil
-    }
+//     func getCachedData(from url: URL) -> Data? {
+//         let urlRequest = URLRequest(url: url)
+//         if let cachedResponse = URLCache.shared.cachedResponse(for: urlRequest) {
+//             return cachedResponse.data
+//         }
+//         return nil
+//     }
     // Fetch Image for next steps
     func fetchImageData(from url: URL, with competition: @escaping (Data,URLResponse) -> Void) {
         URLSession.shared.dataTask(with: url) { (data, response , error) in
