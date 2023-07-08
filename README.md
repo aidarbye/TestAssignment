@@ -1,1 +1,1 @@
-unfinished with bugs
+mvvm api project, deeplinks and etc, with bugs
